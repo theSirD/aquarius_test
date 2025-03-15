@@ -1,3 +1,5 @@
+package config;
+
 public class Configuration {
     private final String mode;
     private final String path;
