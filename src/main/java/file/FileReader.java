@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class FileManager {
+public class FileReader {
     public List<File> getFiles(String mode, String path) {
         List<File> files = new ArrayList<>();
         if ("dir".equals(mode)) {
