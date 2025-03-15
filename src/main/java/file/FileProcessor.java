@@ -1,5 +1,10 @@
 package file;
 
+import file.actionHandler.ActionHandler;
+import file.actionHandler.CountActionHandler;
+import file.actionHandler.ReplaceActionHandler;
+import file.actionHandler.StringActionHandler;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,27 +14,21 @@ public class FileProcessor {
         Map<String, Map<String, String>> out = new HashMap<>();
         int maxLines = fileLines.stream().mapToInt(List::size).max().orElse(0);
 
+        ActionHandler stringHandler = new StringActionHandler();
+        ActionHandler countHandler = new CountActionHandler();
+        ActionHandler replaceHandler = new ReplaceActionHandler();
+
+        stringHandler.setNext(countHandler).setNext(replaceHandler);
+
         for (int i = 0; i < maxLines; i++) {
             Map<String, String> lineData = new HashMap<>();
             for (int j = 0; j < fileLines.size(); j++) {
                 List<String> lines = fileLines.get(j);
                 String line = i < lines.size() ? lines.get(i) : "";
-                if ("count".equals(action)) {
-                    lineData.put(String.valueOf(j + 1), String.valueOf(line.split("\\s+").length));
-                } else if ("replace".equals(action)) {
-                    lineData.put(String.valueOf(j + 1), replaceChars(line, j + 1));
-                } else {
-                    lineData.put(String.valueOf(j + 1), line);
-                }
+                lineData.putAll(stringHandler.handle(line, j + 1, action));
             }
             out.put(String.valueOf(i + 1), lineData);
         }
         return out;
-    }
-
-    private String replaceChars(String line, int fileNumber) {
-        return line.replace("a", String.valueOf(fileNumber + 1))
-                .replace("b", String.valueOf(fileNumber + 2))
-                .replace("c", String.valueOf(fileNumber + 3));
     }
 }
