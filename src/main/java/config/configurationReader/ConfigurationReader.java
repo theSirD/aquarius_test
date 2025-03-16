@@ -1,5 +1,9 @@
-package config;
+package config.configurationReader;
 
+import config.Configuration;
+import config.configLineHandler.ActionLineHandler;
+import config.configLineHandler.ModeLineHandler;
+import config.configLineHandler.PathLineHandler;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,18 +17,18 @@ public class ConfigurationReader {
             String line;
             Map<String, String> currentConfig = null;
 
+            ModeLineHandler modeHandler = new ModeLineHandler();
+            PathLineHandler pathHandler = new PathLineHandler();
+            ActionLineHandler actionHandler = new ActionLineHandler();
+
+            modeHandler.setNext(pathHandler).setNext(actionHandler);
+
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
                 if (line.startsWith("#" + configId)) {
                     currentConfig = new HashMap<>();
                 } else if (currentConfig != null) {
-                    if (line.startsWith("#mode:")) {
-                        currentConfig.put("mode", line.substring(6).trim());
-                    } else if (line.startsWith("#path:")) {
-                        currentConfig.put("path", line.substring(6).trim());
-                    } else if (line.startsWith("#action:")) {
-                        currentConfig.put("action", line.substring(8).trim());
-                    }
+                    modeHandler.handleLine(line, currentConfig);
                 }
             }
 
