@@ -1,4 +1,5 @@
 package config.lineHandler;
+
 import java.util.Map;
 
 public class ModeLineHandler extends BaseConfigLineHandler {

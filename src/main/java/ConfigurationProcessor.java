@@ -14,7 +14,6 @@ import file.processor.FileProcessorImpl;
 import file.reader.FileReaderImpl;
 import json.JsonGenerator;
 import json.JsonWriter;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -50,15 +49,14 @@ public class ConfigurationProcessor {
             validator.validate(config);
 
             FileReaderImpl fileReader = new FileReaderImpl();
+            List<File> files = fileReader.getFiles(config.getMode(), config.getPath());
+            List<List<String>> fileLines = fileReader.getFilesContent(files);
 
             ActionHandler stringHandler = new StringActionHandler();
             ActionHandler countHandler = new CountActionHandler();
             ActionHandler replaceHandler = new ReplaceActionHandler();
             stringHandler.setNext(countHandler).setNext(replaceHandler);
             FileProcessor contentProcessor = new FileProcessorImpl(stringHandler);
-
-            List<File> files = fileReader.getFiles(config.getMode(), config.getPath());
-            List<List<String>> fileLines = fileReader.getFilesContent(files);
 
             Map<String, Map<String, String>> result = contentProcessor.processFilesContent(fileLines, config.getAction());
 

@@ -1,6 +1,6 @@
 package config.reader;
 
-import config.Configuration;
+import config.configuration.Configuration;
 import config.lineHandler.BaseConfigLineHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

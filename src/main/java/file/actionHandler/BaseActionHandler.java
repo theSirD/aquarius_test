@@ -3,6 +3,7 @@ package file.actionHandler;
 import java.util.Map;
 
 public abstract class BaseActionHandler implements ActionHandler {
+
     protected ActionHandler nextHandler;
 
     @Override

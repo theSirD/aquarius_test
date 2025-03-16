@@ -1,7 +1,6 @@
 package config.validator;
 
 import config.configuration.Configuration;
-
 import java.util.Set;
 
 public abstract class BaseConfigurationValidator {

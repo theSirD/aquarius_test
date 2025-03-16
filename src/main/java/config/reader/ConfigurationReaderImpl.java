@@ -2,7 +2,6 @@ package config.reader;
 
 import config.configuration.Configuration;
 import config.lineHandler.ConfigLineHandler;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConfigurationReaderImpl implements ConfigurationReader {
+
     private final ConfigLineHandler _configLineHandlerChain;
 
     public ConfigurationReaderImpl(ConfigLineHandler configLineHandler) {
