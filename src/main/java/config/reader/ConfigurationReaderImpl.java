@@ -1,10 +1,7 @@
 package config.reader;
 
 import config.Configuration;
-import config.lineHandler.ActionLineHandler;
 import config.lineHandler.BaseConfigLineHandler;
-import config.lineHandler.ModeLineHandler;
-import config.lineHandler.PathLineHandler;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
