@@ -1,0 +1,29 @@
+#1
+#mode: dir
+#path: files_to_handle
+#action: string
+
+#2
+#mode: dir
+#path: files_to_handle
+#action: replace
+
+#3
+#mode: dir
+#path: files_to_handle
+#action: count
+
+#4
+#mode: files
+#path: files_to_handle/file1.txt,files_to_handle/file2.txt,files_to_handle/file3.txt,files_to_handle/file4.txt,files_to_handle/file5.txt,files_to_handle/file6.txt,
+#action: string
+
+#5
+#mode: files
+#path: files_to_handle/file1.txt,files_to_handle/file2.txt,files_to_handle/file3.txt,files_to_handle/file4.txt,files_to_handle/file5.txt,files_to_handle/file6.txt,
+#action: replace
+
+#6
+#mode: files
+#path: files_to_handle/file1.txt,files_to_handle/file2.txt,files_to_handle/file3.txt,files_to_handle/file4.txt,files_to_handle/file5.txt,files_to_handle/file6.txt,
+#action: count
