@@ -12,7 +12,10 @@ import file.actionHandler.StringActionHandler;
 import file.processor.FileProcessor;
 import file.processor.FileProcessorImpl;
 import file.reader.FileReaderImpl;
-import json.JsonGenerator;
+import json.writer.BaseJsonWriter;
+import json.writer.FileJsonWriter;
+import json.generator.JsonGenerator;
+import json.generator.JsonGeneratorImpl;
 import json.JsonWriter;
 import java.io.File;
 import java.io.IOException;
@@ -66,8 +69,10 @@ public class ConfigurationProcessor {
             outputData.put("configurationData", config);
             outputData.put("out", result);
 
-            String jsonOutput = JsonGenerator.generateJson(outputData);
-            String outputFilePath = JsonWriter.saveJson(jsonOutput, "output.json");
+            JsonGenerator jsonGenerator = new JsonGeneratorImpl();
+            BaseJsonWriter jsonWriter = new FileJsonWriter(jsonGenerator);
+            String outputFilePath = jsonWriter.saveJson(outputData, "output.json");
+
             System.out.println("Результат сохранен в: " + outputFilePath);
 
         } catch (IOException | IllegalArgumentException e) {
