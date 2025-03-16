@@ -1,9 +1,14 @@
-import config.Configuration;
+import config.configuration.Configuration;
 import config.lineHandler.ActionLineHandler;
 import config.lineHandler.ModeLineHandler;
 import config.lineHandler.PathLineHandler;
 import config.reader.ConfigurationReader;
 import config.reader.ConfigurationReaderImpl;
+import config.validator.ConfigurationValidator;
+import file.actionHandler.ActionHandler;
+import file.actionHandler.CountActionHandler;
+import file.actionHandler.ReplaceActionHandler;
+import file.actionHandler.StringActionHandler;
 import file.processor.FileProcessor;
 import file.processor.FileProcessorImpl;
 import file.reader.FileReaderImpl;
@@ -15,6 +20,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ConfigurationProcessor {
     public static void main(String[] args) {
@@ -30,20 +36,26 @@ public class ConfigurationProcessor {
             ModeLineHandler modeHandler = new ModeLineHandler();
             PathLineHandler pathHandler = new PathLineHandler();
             ActionLineHandler actionHandler = new ActionLineHandler();
-
             modeHandler.setNext(pathHandler).setNext(actionHandler);
-
             ConfigurationReader configurationReader = new ConfigurationReaderImpl(modeHandler);
+
             Configuration config = configurationReader.readConfiguration(configFile, configId);
             if (config == null) {
                 System.err.println("Конфигурация с номером " + configId + " не найдена.");
                 System.exit(1);
             }
 
-            config.validate();
+            Set<String> allowedActions = Set.of("string", "count", "replace");
+            ConfigurationValidator validator = new ConfigurationValidator(allowedActions);
+            validator.validate(config);
 
             FileReaderImpl fileReader = new FileReaderImpl();
-            FileProcessor contentProcessor = new FileProcessorImpl();
+
+            ActionHandler stringHandler = new StringActionHandler();
+            ActionHandler countHandler = new CountActionHandler();
+            ActionHandler replaceHandler = new ReplaceActionHandler();
+            stringHandler.setNext(countHandler).setNext(replaceHandler);
+            FileProcessor contentProcessor = new FileProcessorImpl(stringHandler);
 
             List<File> files = fileReader.getFiles(config.getMode(), config.getPath());
             List<List<String>> fileLines = fileReader.getFilesContent(files);
