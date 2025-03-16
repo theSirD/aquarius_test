@@ -1,7 +1,8 @@
 package config.reader;
 
-import config.Configuration;
-import config.lineHandler.BaseConfigLineHandler;
+import config.configuration.Configuration;
+import config.lineHandler.ConfigLineHandler;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ConfigurationReaderImpl implements ConfigurationReader {
-    private final BaseConfigLineHandler _configLineHandlerChain;
+    private final ConfigLineHandler _configLineHandlerChain;
 
-    public ConfigurationReaderImpl(BaseConfigLineHandler configLineHandler) {
+    public ConfigurationReaderImpl(ConfigLineHandler configLineHandler) {
         _configLineHandlerChain = configLineHandler;
     }
 
@@ -22,7 +23,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
 
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                if (line.equals("") && currentConfig != null)
+                if (line.isEmpty() && currentConfig != null)
                     break;
 
                 if (line.startsWith("#" + configId)) {

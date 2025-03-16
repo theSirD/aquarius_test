@@ -1,6 +1,6 @@
 package config.reader;
 
-import config.Configuration;
+import config.configuration.Configuration;
 
 import java.io.IOException;
 
