@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'ru.isaev'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.2'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'
+    implementation 'com.google.code.gson:gson:2.12.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass = 'ConfigurationProcessor'
+}
+
+run {
+    standardInput = System.in
+    args = project.hasProperty('appArgs') ? project.appArgs.split(',') : []
+}
