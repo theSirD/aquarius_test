@@ -1,18 +1,17 @@
-package config.configurationReader;
+package config.reader;
 
 import config.Configuration;
-import config.configLineHandler.ActionLineHandler;
-import config.configLineHandler.ModeLineHandler;
-import config.configLineHandler.PathLineHandler;
+import config.lineHandler.ActionLineHandler;
+import config.lineHandler.ModeLineHandler;
+import config.lineHandler.PathLineHandler;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConfigurationReader {
-
-    public static Configuration readConfiguration(String configFile, String configId) throws IOException {
+public class ConfigurationReaderImpl implements ConfigurationReader {
+    public Configuration readConfiguration(String configFile, String configId) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
             String line;
             Map<String, String> currentConfig = null;
@@ -25,6 +24,9 @@ public class ConfigurationReader {
 
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
+                if (line.equals("") && currentConfig != null)
+                    break;
+
                 if (line.startsWith("#" + configId)) {
                     currentConfig = new HashMap<>();
                 } else if (currentConfig != null) {

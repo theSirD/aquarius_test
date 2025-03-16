@@ -1,12 +1,13 @@
-package file;
+package file.reader;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class FileReader {
+public class FileReaderImpl implements FileReader {
     public List<File> getFiles(String mode, String path) {
         List<File> files = new ArrayList<>();
         if ("dir".equals(mode)) {
@@ -45,7 +46,7 @@ public class FileReader {
 
     private List<String> getFileContent(File file) throws IOException {
         List<String> lines = new ArrayList<>();
-        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new java.io.FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);

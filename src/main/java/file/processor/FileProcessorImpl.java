@@ -1,4 +1,4 @@
-package file;
+package file.processor;
 
 import file.actionHandler.ActionHandler;
 import file.actionHandler.CountActionHandler;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FileProcessor {
+public class FileProcessorImpl implements FileProcessor {
     public Map<String, Map<String, String>> processFilesContent(List<List<String>> fileLines, String action) {
         Map<String, Map<String, String>> out = new HashMap<>();
         int maxLines = fileLines.stream().mapToInt(List::size).max().orElse(0);
