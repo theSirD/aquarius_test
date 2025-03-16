@@ -6,12 +6,11 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PathLineHandlerTest {
-    // TODO. Add trimming before commas
     @Test
     void handleLine_ValidPathLine() {
         PathLineHandler handler = new PathLineHandler();
         Map<String, String> config = new HashMap<>();
-        handler.handleLine("#path: /some/path,/some/path2", config);
+        handler.handleLine("#path: /some/path, /some/path2", config);
         assertEquals("/some/path,/some/path2", config.get("path"));
     }
 
