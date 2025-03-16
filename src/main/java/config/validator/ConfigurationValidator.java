@@ -4,12 +4,26 @@ import config.configuration.Configuration;
 
 import java.util.Set;
 
+/**
+ * Валидатор конфигураций, проверяющий корректность полей конфигурации.
+ */
 public class ConfigurationValidator extends BaseConfigurationValidator {
 
+    /**
+     * Конструктор для создания экземпляра ConfigurationValidator.
+     *
+     * @param allowedActions Множество допустимых действий.
+     */
     public ConfigurationValidator(Set<String> allowedActions) {
         super(allowedActions);
     }
 
+    /**
+     * Валидирует конфигурацию, проверяя корректность полей "mode", "path" и "action".
+     *
+     * @param configuration Конфигурация для валидации.
+     * @throws IllegalArgumentException Если конфигурация не проходит валидацию.
+     */
     @Override
     public void validate(Configuration configuration) {
         if (configuration == null) {

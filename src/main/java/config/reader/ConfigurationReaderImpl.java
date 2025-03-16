@@ -8,14 +8,34 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Реализация интерфейса ConfigurationReader для чтения конфигураций из файла.
+ * Использует цепочку обработчиков строк для парсинга конфигурации.
+ */
 public class ConfigurationReaderImpl implements ConfigurationReader {
 
+    /**
+     * Цепочка обработчиков строк конфигурации.
+     */
     private final ConfigLineHandler _configLineHandlerChain;
 
+    /**
+     * Конструктор для создания экземпляра ConfigurationReaderImpl.
+     *
+     * @param configLineHandler Цепочка обработчиков строк конфигурации.
+     */
     public ConfigurationReaderImpl(ConfigLineHandler configLineHandler) {
         _configLineHandlerChain = configLineHandler;
     }
 
+    /**
+     * Читает конфигурацию из указанного файла по заданному идентификатору.
+     *
+     * @param configFile Путь к файлу конфигурации.
+     * @param configId   Идентификатор конфигурации.
+     * @return Объект Configuration, если конфигурация найдена, иначе null.
+     * @throws IOException Если произошла ошибка ввода-вывода при чтении файла.
+     */
     public Configuration readConfiguration(String configFile, String configId) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(configFile))) {
             String line;
