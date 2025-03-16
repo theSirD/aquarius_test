@@ -1,12 +1,11 @@
-package config.configLineHandler;
-
+package config.lineHandler;
 import java.util.Map;
 
-public class ActionLineHandler extends BaseConfigLineHandler {
+public class PathLineHandler extends BaseConfigLineHandler {
     @Override
     public void handleLine(String line, Map<String, String> config) {
         if (canHandle(line)) {
-            config.put("action", line.substring(8).trim());
+            config.put("path", line.substring(6).trim());
             return;
         }
 
@@ -15,6 +14,6 @@ public class ActionLineHandler extends BaseConfigLineHandler {
 
     @Override
     public boolean canHandle(String line) {
-        return line.startsWith("#action:");
+        return line.startsWith("#path:");
     }
 }

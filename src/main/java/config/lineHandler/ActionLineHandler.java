@@ -1,18 +1,20 @@
-package config.configLineHandler;
+package config.lineHandler;
+
 import java.util.Map;
 
-public class ModeLineHandler extends BaseConfigLineHandler {
+public class ActionLineHandler extends BaseConfigLineHandler {
     @Override
     public void handleLine(String line, Map<String, String> config) {
         if (canHandle(line)) {
-            config.put("mode", line.substring(6).trim());
+            config.put("action", line.substring(8).trim());
             return;
         }
+
         super.handleLine(line, config);
     }
 
     @Override
     public boolean canHandle(String line) {
-        return line.startsWith("#mode:");
+        return line.startsWith("#action:");
     }
 }

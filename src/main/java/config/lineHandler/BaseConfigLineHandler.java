@@ -1,4 +1,4 @@
-package config.configLineHandler;
+package config.lineHandler;
 import java.util.Map;
 
 public abstract class BaseConfigLineHandler implements ConfigLineHandler {
