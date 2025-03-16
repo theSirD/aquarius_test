@@ -32,6 +32,10 @@ public class Configuration {
             throw new IllegalArgumentException("Неверный путь (path): " + path);
         }
 
+        if (mode.equals("dir") && path.trim().split(",").length > 1) {
+            throw new IllegalArgumentException("Для режима 'dir' в поле 'path' должна быть указана только одна директория");
+        }
+
         if (action == null || (!action.equals("string") && !action.equals("count") && !action.equals("replace"))) {
             throw new IllegalArgumentException("Неверное действие (action): " + action);
         }
