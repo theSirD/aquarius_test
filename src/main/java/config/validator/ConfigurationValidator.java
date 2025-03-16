@@ -1,29 +1,25 @@
-package config;
+package config.validator;
 
-public class Configuration {
-    private final String mode;
-    private final String path;
-    private final String action;
+import config.configuration.Configuration;
 
-    public Configuration(String mode, String path, String action) {
-        this.mode = mode;
-        this.path = path;
-        this.action = action;
+import java.util.Set;
+
+public class ConfigurationValidator extends BaseConfigurationValidator {
+
+    public ConfigurationValidator(Set<String> allowedActions) {
+        super(allowedActions);
     }
 
-    public String getMode() {
-        return mode;
-    }
+    @Override
+    public void validate(Configuration configuration) {
+        if (configuration == null) {
+            throw new IllegalArgumentException("Конфигурация не может быть null");
+        }
 
-    public String getPath() {
-        return path;
-    }
+        String mode = configuration.getMode();
+        String path = configuration.getPath();
+        String action = configuration.getAction();
 
-    public String getAction() {
-        return action;
-    }
-
-    public void validate() {
         if (mode == null || (!mode.equals("dir") && !mode.equals("files"))) {
             throw new IllegalArgumentException("Неверный режим (mode): " + mode);
         }
@@ -36,7 +32,7 @@ public class Configuration {
             throw new IllegalArgumentException("Для режима 'dir' в поле 'path' должна быть указана только одна директория");
         }
 
-        if (action == null || (!action.equals("string") && !action.equals("count") && !action.equals("replace"))) {
+        if (action == null || !allowedActions.contains(action)) {
             throw new IllegalArgumentException("Неверное действие (action): " + action);
         }
     }
