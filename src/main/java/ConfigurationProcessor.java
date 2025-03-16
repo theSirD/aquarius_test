@@ -1,4 +1,7 @@
 import config.Configuration;
+import config.lineHandler.ActionLineHandler;
+import config.lineHandler.ModeLineHandler;
+import config.lineHandler.PathLineHandler;
 import config.reader.ConfigurationReader;
 import config.reader.ConfigurationReaderImpl;
 import file.processor.FileProcessor;
@@ -24,7 +27,13 @@ public class ConfigurationProcessor {
         String configId = args[1];
 
         try {
-            ConfigurationReader configurationReader = new ConfigurationReaderImpl();
+            ModeLineHandler modeHandler = new ModeLineHandler();
+            PathLineHandler pathHandler = new PathLineHandler();
+            ActionLineHandler actionHandler = new ActionLineHandler();
+
+            modeHandler.setNext(pathHandler).setNext(actionHandler);
+
+            ConfigurationReader configurationReader = new ConfigurationReaderImpl(modeHandler);
             Configuration config = configurationReader.readConfiguration(configFile, configId);
             if (config == null) {
                 System.err.println("Конфигурация с номером " + configId + " не найдена.");
