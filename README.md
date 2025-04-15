@@ -49,15 +49,8 @@ gradle run --args="configurations/conf.txt <ID конфигурации>"
 #mode: files
 #path: files_to_handle/file1.txt,files_to_handle/file2.txt,files_to_handle/file3.txt,files_to_handle/file4.txt,files_to_handle/file5.txt,files_to_handle/file6.txt,
 #action: count
-Содержимое файлов, указанных в конфигурациях:
-
-file1.txt:
-
-Строка 1a Строка 1b Строка 1c
-Строка 2a Строка 2b Строка 2c
-Строка 3a Строка 3b Строка 3c
 ```
-
+## Содержимое файлов, указанных в конфигурациях:
 ### file1.txt
 ```
 Строка 1a Строка 1b Строка 1c
